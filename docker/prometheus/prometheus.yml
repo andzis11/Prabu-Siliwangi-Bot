@@ -10,7 +10,7 @@ scrape_configs:
       - targets: ['rust-copy-engine:8787']
     metrics_path: '/metrics'
 
-  # Kabayan Bot (if exposed)
-  - job_name: 'prabu-kabayan-bot'
+  # Prabu Siliwangi (if exposed)
+  - job_name: 'prabu-siliwangi'
     static_configs:
-      - targets: ['kabayan-bot:3000']
+      - targets: ['prabu-siliwangi:3000']

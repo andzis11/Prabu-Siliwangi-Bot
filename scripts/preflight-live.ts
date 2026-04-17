@@ -1,14 +1,14 @@
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
-import { loadEnv } from "../apps/kabayan-bot/src/config/env";
-import { loadAppConfig } from "../apps/kabayan-bot/src/config/userConfig";
-import { validateEnv } from "../apps/kabayan-bot/src/config/envValidator";
+import { loadEnv } from "../apps/prabu-siliwangi/src/config/env";
+import { loadAppConfig } from "../apps/prabu-siliwangi/src/config/userConfig";
+import { validateEnv } from "../apps/prabu-siliwangi/src/config/envValidator";
 import {
   createWalletConfig,
   getWalletBalance,
-} from "../apps/kabayan-bot/src/config/wallet";
-import { fetchSwapQuotePreview } from "../apps/kabayan-bot/src/execution/swap";
-import { OpenRouterClient } from "../apps/kabayan-bot/src/integrations/ai/openrouterClient";
-import { RustCopyEngineClient } from "../apps/kabayan-bot/src/integrations/rust-engine/client";
+} from "../apps/prabu-siliwangi/src/config/wallet";
+import { fetchSwapQuotePreview } from "../apps/prabu-siliwangi/src/execution/swap";
+import { OpenRouterClient } from "../apps/prabu-siliwangi/src/integrations/ai/openrouterClient";
+import { RustCopyEngineClient } from "../apps/prabu-siliwangi/src/integrations/rust-engine/client";
 
 async function main(): Promise<void> {
   const env = loadEnv();

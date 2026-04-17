@@ -100,15 +100,15 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/prabu-rust-engine:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/prabu-rust-engine:${{ github.sha }}
 
-      - name: Build Kabayan Bot Docker Image
+      - name: Build Prabu Siliwangi Docker Image
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./apps/kabayan-bot/Dockerfile
+          file: ./apps/prabu-siliwangi/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-kabayan-bot:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-kabayan-bot:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-siliwangi:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-siliwangi:${{ github.sha }}
 
   # Deploy to Server
   deploy:

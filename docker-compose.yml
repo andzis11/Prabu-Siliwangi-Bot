@@ -25,12 +25,12 @@ services:
     networks:
       - prabu-network
 
-  # Kabayan Bot - Telegram trading bot
-  kabayan-bot:
+  # Prabu Siliwangi - Telegram trading bot
+  prabu-siliwangi:
     build:
       context: .
-      dockerfile: apps/kabayan-bot/Dockerfile
-    container_name: prabu-kabayan-bot
+      dockerfile: apps/prabu-siliwangi/Dockerfile
+    container_name: prabu-siliwangi
     ports:
       - "3000:3000"
     environment:

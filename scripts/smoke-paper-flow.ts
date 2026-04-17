@@ -1,16 +1,16 @@
-import { createPnLRenderer } from "../apps/kabayan-bot/src/modules/pnl/renderer";
+import { createPnLRenderer } from "../apps/prabu-siliwangi/src/modules/pnl/renderer";
 import {
   TradeJournalEntry,
   TradeJournalStore,
   formatRecentTrades,
-} from "../apps/kabayan-bot/src/repositories/tradeJournal";
+} from "../apps/prabu-siliwangi/src/repositories/tradeJournal";
 import {
   getPaperBalance,
   getPaperPositions,
   paperBuy,
   paperSell,
   resetPaper,
-} from "../apps/kabayan-bot/src/execution/paper";
+} from "../apps/prabu-siliwangi/src/execution/paper";
 
 class InMemoryTradeJournal implements TradeJournalStore {
   private readonly entries: TradeJournalEntry[] = [];

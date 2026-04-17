@@ -52,15 +52,15 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/prabu-rust-engine:${{ steps.version.outputs.VERSION }}
             ${{ secrets.DOCKERHUB_USERNAME }}/prabu-rust-engine:latest
 
-      - name: Build and push Kabayan Bot
+      - name: Build and push Prabu Siliwangi
         uses: docker/build-push-action@v5
         with:
           context: .
-          file: ./apps/kabayan-bot/Dockerfile
+          file: ./apps/prabu-siliwangi/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-kabayan-bot:${{ steps.version.outputs.VERSION }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-kabayan-bot:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-siliwangi:${{ steps.version.outputs.VERSION }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/prabu-siliwangi:latest
 
   # Deploy to Production
   deploy-prod:

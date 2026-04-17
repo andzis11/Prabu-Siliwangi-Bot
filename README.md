@@ -29,7 +29,7 @@ Proyek ini dibuat untuk menggabungkan kekuatan dari beberapa codebase yang berbe
 ```
 Prabu-Siliwangi/
 ├── apps/
-│   └── kabayan-bot/          # Telegram bot & orchestration
+│   └── prabu-siliwangi/          # Telegram bot & orchestration
 │       └── src/
 │           ├── bot/          # Telegram gateway & UI
 │           ├── jobs/         # Scheduled workers
@@ -134,8 +134,8 @@ npm run typecheck
 # Run all tests
 npm run test
 
-# Run dev mode (Kabayan bot only)
-npm run dev -w @prabu/kabayan-bot
+# Run dev mode (Prabu Siliwangi only)
+npm run dev -w @prabu/prabu-siliwangi
 
 # Run specific workspace
 npm run build -w @prabu/meteora
@@ -323,7 +323,7 @@ Buttons:
 ### Add new feature
 
 1. Buat module di `packages/` jika reusable
-2. Import di `apps/kabayan-bot/src/`
+2. Import di `apps/prabu-siliwangi/src/`
 3. Tambahkan command di Telegram gateway
 
 ## License
