@@ -12,7 +12,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev -w @prabu/kabayan-bot",
+    "dev": "npm run dev -w @prabu/prabu-siliwangi",
     "build": "npm run build --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
