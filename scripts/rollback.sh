@@ -21,7 +21,7 @@ docker-compose down
 # Pull specific previous images
 echo "🔄 Rolling back to previous images..."
 docker pull $DOCKERHUB_USERNAME/prabu-rust-engine:latest || true
-docker pull $DOCKERHUB_USERNAME/prabu-kabayan-bot:latest || true
+docker pull $DOCKERHUB_USERNAME/prabu-siliwangi:latest || true
 
 # Start services
 docker-compose up -d

@@ -34,7 +34,7 @@ Struktur direktori utama проекта terdiri dari beberapa direktori уров
 
 Combine/Prabu-Siliwangi/
 ├── apps/
-│   └── kabayan-bot          # Bot Telegram utama dan orchestration
+│   └── prabu-siliwangi          # Bot Telegram utama dan orchestration
 ├── packages/                 # Modul reusable
 │   ├── wallet-intel        # Analisa wallet dan forensic
 │   ├── meteora             # DLMM dan liquidity management
@@ -50,11 +50,11 @@ Combine/Prabu-Siliwangi/
 
 ### 3.2 Struktur Apps
 
-Direktori apps/kabayan-bot berisi struktur internal untuk bot utama. Bagian ini mencakup src/app untuk use case dan orchestrator utama, src/bot untuk Telegram router, command handler, dan inline menu, src/integrations untuk koneksi ke service eksternal seperti AI dan Rust engine, serta src/jobs untuk worker yang menjadwalkan tugas seperti screening dan management.
+Direktori apps/prabu-siliwangi berisi struktur internal untuk bot utama. Bagian ini mencakup src/app untuk use case dan orchestrator utama, src/bot untuk Telegram router, command handler, dan inline menu, src/integrations untuk koneksi ke service eksternal seperti AI dan Rust engine, serta src/jobs untuk worker yang menjadwalkan tugas seperti screening dan management.
 
 ```
 
-apps/kabayan-bot/src/
+apps/prabu-siliwangi/src/
 ├── app/
 │   ├── orchestrator.ts     # Orchestrator utama
 │   └── use-cases/          # Use case per fitur

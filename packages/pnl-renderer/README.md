@@ -206,9 +206,9 @@ const card = await pnlRenderer.generateCard({
 });
 ```
 
-### Integration with kabayan-bot
+### Integration with Prabu Siliwangi
 ```typescript
-// In kabayan-bot command handler
+// In prabu-siliwangi command handler
 export async function handlePnLCommand(chatId: string, positionKey: string) {
   const pnlData = await fetchPnLFromMeteora(positionKey);
   const cardBuffer = await pnlRenderer.generateCard(pnlData);

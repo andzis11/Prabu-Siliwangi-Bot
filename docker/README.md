@@ -35,7 +35,7 @@ docker-compose down
 | Service | Port | Description |
 |---------|------|-------------|
 | rust-copy-engine | 8787 | High-performance trading engine |
-| kabayan-bot | 3000 | Telegram trading bot |
+| prabu-siliwangi | 3000 | Telegram trading bot |
 | prometheus | 9090 | Metrics collection |
 | grafana | 3001 | Visualization |
 
@@ -101,7 +101,7 @@ curl http://localhost:9090/api/v1/targets
 ### View logs
 ```bash
 docker-compose logs rust-copy-engine
-docker-compose logs kabayan-bot
+docker-compose logs prabu-siliwangi
 ```
 
 ### Restart service

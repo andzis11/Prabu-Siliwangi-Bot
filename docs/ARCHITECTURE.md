@@ -68,7 +68,7 @@ Why:
 
 ### Applications
 
-#### `apps/kabayan-bot`
+#### `apps/prabu-siliwangi`
 Primary control plane.
 
 Responsibilities:

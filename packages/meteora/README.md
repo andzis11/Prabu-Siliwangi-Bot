@@ -237,12 +237,12 @@ interface ExtremeSession {
 }
 ```
 
-## Integration with Kabayan-Bot
+## Integration with Prabu Siliwangi
 
 ### Example Integration
 
 ```typescript
-// In kabayan-bot service
+// In prabu-siliwangi service
 import { EnhancedDLMMService } from '@prabu/meteora';
 
 class KabayanBotService {
