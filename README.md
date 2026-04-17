@@ -1,28 +1,37 @@
 # Prabu-Siliwangi
 
-Prabu-Siliwangi adalah proyek gabungan yang menyatukan beberapa sistem trading, analitik, dan otomasi Solana ke dalam satu arsitektur yang lebih rapi, modular, dan siap dikembangkan.
+Platform trading Solana hybrid modular dengan Telegram sebagai control center, integrasi AI untuk screening dan analisis, serta fitur lengkap untuk trading, DCA, copy trading, dan automation.
 
-## Tujuan Proyek
+## Overview
 
-Proyek ini dibuat untuk menggabungkan kekuatan dari beberapa codebase yang berbeda menjadi satu ekosistem terpadu, dengan fokus pada:
+Prabu-Siliwangi adalah sistem trading Solana yang menggabungkan beberapa komponen utama:
 
-- satu pusat kontrol utama berbasis Telegram
-- AI sebagai lapisan analisa dan pengambil rekomendasi
-- modul screening, wallet intelligence, PnL, Meteora, dan copy trading
-- pemisahan yang jelas antara logic bisnis, risk engine, AI layer, dan execution engine
-- fondasi yang lebih mudah di-maintain, diaudit, dan diskalakan
+- **Telegram Bot** - Control center utama untuk kontrol dan monitoring
+- **AI Integration** - Screening dan analisis via OpenRouter
+- **Meteora DLMM** - Manajemen liquidity dan posisi
+- **Wallet Intelligence** - Analisa wallet, funder detection, bundle analysis
+- **PnL Visualization** - Render hasil trading dalam format visual card
+- **Rust Copy Engine** - High-performance copy trading service
+- **Automation** - Auto-execute, DCA, trailing TP/SL, time-exit
 
-## Visi Arsitektur
+## Arsitektur
 
-`Prabu-Siliwangi` dirancang sebagai sistem hybrid modular:
+```
+Prabu-Siliwangi/
+├── apps/prabu-siliwangi/     # Telegram bot (main app)
+├── packages/                # Reusable modules
+│   ├── ai-router/          # AI provider routing (OpenRouter)
+│   ├── meteora/            # Meteora DLMM integration
+│   ├── pnl-renderer/      # PnL card visualization
+│   ├── shared-solana/       # Solana utilities
+│   ├── wallet-intel/       # Wallet analysis (Helius)
+│   └── shared-types/        # Shared types
+├── services/               # External services
+│   └── rust-copy-engine/  # Rust copy trading engine
+└── scripts/                # CLI scripts
+```
 
-- **Kabayan Bot** sebagai control center utama
-- **Wallet Intelligence** untuk analisa funder, bundler, dan pola wallet
-- **Meteora Module** untuk screening pool dan manajemen LP/DLMM
-- **PnL Renderer** untuk visualisasi hasil trading
-- **AI Router** untuk integrasi model AI melalui provider seperti OpenRouter
-- **Rust Copy Engine** untuk eksekusi copy-trading berkecepatan tinggi
-- **Shared Packages** untuk utilitas, type, dan helper Solana yang bisa dipakai bersama
+Monorepo dengan npm workspaces - semua package bisa di-build dan di-test bersama.
 
 ## Struktur Folder
 
@@ -109,7 +118,7 @@ RUST_COPY_ENGINE_URL=http://127.0.0.1:8787
 npm run build
 ```
 
-### 4. Run Kabayan Bot
+### 4. Run Prabu Siliwangi
 
 ```bash
 npm run dev
@@ -141,176 +150,102 @@ npm run dev -w @prabu/prabu-siliwangi
 npm run build -w @prabu/meteora
 ```
 
-## Features
-
-### 🔄 DCA (Dollar Cost Averaging)
-- Split position into multiple legs
-- Configurable number of legs and intervals
-- Skip legs if price moves too far from average
-- Auto-execute with callbacks
-- Average entry price tracking
-
-### ⏰ Time-Based Exit
-- Auto-close positions after X hours
-- Warning notifications before expiry
-- Configurable default max hours
-- Works alongside TP/SL
-
-### 📊 Risk Calculator
-- Position sizing based on risk tolerance
-- Kelly Criterion calculation
-- Sharpe, Sortino, Calmar ratios
-- Max drawdown tracking
-- Risk/Reward ratio analysis
-
-### 💧 Liquidity Check
-- Check pool liquidity before buy
-- Slippage estimation
-- In-range liquidity analysis
-- Configurable thresholds
-
-### 💰 Real-Time Price Feed
-- Helius API integration
-- Token price tracking
-- 24h price change
-- Caching untuk avoid rate limits
+## Fitur Utama
 
 ### 🤖 AI Screening
 - Pool screening dengan AI (OpenRouter)
-- Rule-based filtering + AI scoring
 - Organic score calculation
-- Configurable thresholds (TVL, volume, holders, etc.)
+- Filter TVL, volume, holders
+- Auto-execute berdasarkan score threshold
 
 ### ⚡ Auto Execute
-- Automatic buy berdasarkan AI score threshold
+- Automatic buy berdasarkan AI score
 - Position sizing (% of capital)
-- **Trailing Take Profit (TTP)**: Lock profit dengan trailing
-- **Trailing Stop Loss (TSL)**: Stop loss yang mengikuti high price
-- Max concurrent positions limit
+- Trailing Take Profit (TTP)
+- Trailing Stop Loss (TSL)
+- Max concurrent positions
 
-### 📊 Copy Trade Dashboard
-- Real-time position tracking
-- Wallet subscription management
-- Trade history & analytics
-- Win rate, volume, P&L statistics
+### 💰 DCA (Dollar Cost Averaging)
+- Split posisi menjadi beberapa legs
+- Konfigurable interval
+- Skip legs jika harga bergerak jauh
 
-### 💼 Position Execution
-- Execute buy/sell dari screening results
-- Configurable slippage & Jito bundler
-- Stop Loss & Take Profit automation
-- Position tracking dengan P&L
+### ⏰ Time Exit
+- Auto-tutup posisi setelah X jam
+- Warning notification sebelum expiry
 
-### 🧠 Worker System
-- **Screening Worker**: Auto-discover & screen pools
-- **Management Worker**: Monitor positions, SL/TP execution
-- **Health Worker**: Monitor RPC & service health
-- **Report Worker**: Daily/Weekly P&L reports
+### 📊 Risk Management
+- Position sizing berdasarkan risk tolerance
+- Kelly Criterion calculation
+- Stop Loss & Take Profit (fixed & trailing)
+- Max drawdown tracking
+
+### 💧 Liquidity Check
+- Cek pool liquidity sebelum buy
+- Slippage estimation
+- In-range liquidity analysis
+
+### 💰 Price Feed
+- Helius API integration
+- Real-time token price
+- 24h price change
 
 ### 📈 Pool Discovery
 - Trending pools dari Helius API
 - New token discovery
-- Organic score calculation
-- Caching untuk avoid rate limits
 
-### 🛡️ Risk Management
-- Stop Loss (fixed & trailing)
-- Take Profit (fixed & trailing)
-- Position sizing limits
-- Max concurrent positions
-- Token exclusion list
-
-### 📊 Reports & Analytics
-- Daily P&L summary
-- Weekly aggregation
-- Win rate statistics
-- Best/worst trades
-- Trade history
+### 💼 Copy Trading
+- Subscribe wallet target
+- Real-time position tracking
+- Trade history & analytics
 
 ### 🧪 Backtesting
-- Test strategies against historical data
+- Test strategi dengan historical data
 - Multiple strategy comparison
 - Equity curve tracking
-- Sharpe ratio & max drawdown
 
 ### 💾 Persistence
 - JSON-based storage
-- Trade history
-- Position records
-- Screening history
-- Auto-save dengan interval
+- Trade history, positions
+- Auto-save interval
 
 ### 🔔 Notifications
 - Telegram alerts
-- Configurable notification preferences
-- Emergency alerts
-- Position alerts
 - Health alerts
+- Position alerts
 
-## Telegram Menu Structure
+## Telegram Commands
 
-```
-Main Menu
-├── 💼 Trading
-│   ├── 📥 Buy Manual
-│   ├── 📤 Sell Manual
-│   ├── 📜 Trade Journal
-│   ├── 📊 Daily Report
-│   └── 📅 Weekly Report
-├── 🧠 Analysis
-│   ├── 📊 System Status
-│   ├── 🤖 AI Agent Status
-│   ├── 🩺 Health Check
-│   └── 🕵️ Wallet Intel
-├── ⚙️ Automation
-│   ├── 🎯 AI Sniper
-│   ├── 🌊 Meteora
-│   ├── 🔍 AI Screening
-│   ├── 📊 Execution
-│   └── ⚡ Auto Execute ⭐
-└── 📊 Copy Trade
-    ├── 📋 Copy Trade Draft
-    ├── 📊 Subscription
-    └── 📈 Dashboard
-```
+| Command | Deskripsi |
+|---------|-----------|
+| `/start` | Start bot & show main menu |
+| `/buy <token>` | Buy token secara manual |
+| `/sell <token>` | Sell token |
+| `/status` | Show system status |
+| `/health` | Health check |
+| `/report` | Daily P&L report |
+| `/positions` | Show open positions |
+| `/wallet <address>` | Wallet analysis |
+| `/screen` | Run AI screening |
+| `/auto` | Toggle auto execute |
+| `/dca <token>` | Start DCA |
 
-## Auto Execute Settings
+## Worker System
 
-```
-Auto Execute: ✅ ENABLED
+- **Screening Worker** - Auto-discover & screen pools
+- **Management Worker** - Monitor positions, SL/TP
+- **Health Worker** - Monitor RPC & services
+- **Report Worker** - Daily/Weekly reports
 
-Settings
-• Min Score: 85
-• Position Size: 10%
-• Max Positions: 5
-
-Take Profit
-• Auto TP: ✅
-• TP Target: 50%
-• Trailing TP: ✅ (10%)
-
-Stop Loss
-• Auto SL: ✅
-• SL Target: 20%
-• Trailing SL: ✅ (5% from high)
-
-Buttons:
-🔄 Trailing TP ON/OFF
-🔄 Trailing SL ON/OFF
-📈 TTP % (callback)
-📉 TSL % (offset from high)
-```
-
-## API Endpoints (Rust Copy Engine)
+## API (Rust Copy Engine)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/health` | Health check |
-| GET | `/status` | Get copy trading status |
 | POST | `/swap` | Execute swap |
-| POST | `/swap/bundle` | Execute with Jito bundle |
-| POST | `/subscriptions` | Add wallet subscription |
-| DELETE | `/subscriptions/:wallet` | Remove subscription |
-| GET | `/subscriptions` | List all subscriptions |
+| POST | `/swap/bundle` | Jito bundle |
+| POST | `/subscriptions` | Add wallet |
+| GET | `/subscriptions` | List wallets |
 
 ## Development
 
