@@ -1,17 +1,17 @@
 # Prabu-Siliwangi
 
-Platform trading Solana hybrid modular dengan Telegram sebagai control center, integrasi AI untuk screening dan analisis, serta fitur lengkap untuk trading, DCA, copy trading, dan automation.
+Platform trading Solana hybrid modular ngagunakeun Telegram salaku control center, integrasi AI pikeun screening jeung analisis, sarta fitur lengkep pikeun trading, DCA, copy trading, jeung automation.
 
 ## Overview
 
-Prabu-Siliwangi adalah sistem trading Solana yang menggabungkan beberapa komponen utama:
+Prabu-Siliwangi téh sistem trading Solana anu ngagabungkeun sababaraha komponén utama:
 
-- **Telegram Bot** - Control center utama untuk kontrol dan monitoring
-- **AI Integration** - Screening dan analisis via OpenRouter
-- **Meteora DLMM** - Manajemen liquidity dan posisi
+- **Telegram Bot** - Control center utama pikeun kontrol jeung monitoring
+- **AI Integration** - Screening jeung analisis via OpenRouter
+- **Meteora DLMM** - Manajemen liquidity jeung posisi
 - **Wallet Intelligence** - Analisa wallet, funder detection, bundle analysis
-- **PnL Visualization** - Render hasil trading dalam format visual card
-- **Rust Copy Engine** - High-performance copy trading service
+- **PnL Visualization** - Render hasil trading sakadar visual card
+- **Rust Copy Engine** - Layanan copy trading performansi tinggi
 - **Automation** - Auto-execute, DCA, trailing TP/SL, time-exit
 
 ## Arsitektur
@@ -261,6 +261,6 @@ npm run build -w @prabu/meteora
 2. Import di `apps/prabu-siliwangi/src/`
 3. Tambahkan command di Telegram gateway
 
-## License
+## Lisensi
 
-Private - All rights reserved
+Private - Saklir berhak dilingkupan
