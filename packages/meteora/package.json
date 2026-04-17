@@ -1,0 +1,59 @@
+{
+  "name": "@prabu/meteora",
+  "private": true,
+  "version": "0.2.0",
+  "description": "Meteora DLMM module for Prabu-Siliwangi - Enhanced with wallet management, strategy presets, extreme mode, and position monitoring",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build",
+    "lint": "eslint src/ --ext .ts",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "@meteora-ag/dlmm": "^1.9.4",
+    "@coral-xyz/anchor": "^0.30.1",
+    "@solana/web3.js": "^1.95.0",
+    "bn.js": "^5.2.1",
+    "bs58": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^5.1.5",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^22.19.17",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.5.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.0.0"
+  },
+  "keywords": [
+    "meteora",
+    "dlmm",
+    "solana",
+    "defi",
+    "liquidity",
+    "trading",
+    "prabu-siliwangi",
+    "kabayan-bot"
+  ],
+  "author": "Andzisone",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/prabu-siliwangi"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/prabu-siliwangi/issues"
+  },
+  "homepage": "https://github.com/your-org/prabu-siliwangi/tree/main/packages/meteora#readme"
+}

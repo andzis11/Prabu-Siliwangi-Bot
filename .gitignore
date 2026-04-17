@@ -1,0 +1,83 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Build output
+dist/
+build/
+coverage/
+target/
+out/
+.tmp/
+temp/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.template
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Runtime / cache
+.cache/
+*.pid
+*.seed
+*.pid.lock
+
+# Databases / local state
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+data/
+storage/
+
+# Rust
+**/target/
+Cargo.lock
+
+# Node / TypeScript
+**/*.tsbuildinfo
+*.js
+*.js.map
+*.d.ts
+!src/**/*.ts
+
+# Media / generated artifacts
+generated/
+exports/
+reports/
+screenshots/
+
+# Secrets / keys
+*.pem
+*.key
+*.secret
+
+# Windows reserved device names
+nul
+prn
+aux
+con

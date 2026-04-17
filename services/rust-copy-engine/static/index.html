@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prabu-Siliwangi Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e4e4e4;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: #ff8a1f;
+            font-size: 28px;
+        }
+
+        .status-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-badge.connected {
+            background: #2d5a27;
+            color: #5ce66f;
+        }
+
+        .status-badge.disconnected {
+            background: #5a2727;
+            color: #ff6f7f;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .positive {
+            color: #5ce66f;
+        }
+
+        .negative {
+            color: #ff6f7f;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #ff8a1f;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #ff6a00;
+        }
+
+        .btn-secondary {
+            background: #333;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background: #ff4444;
+            color: #fff;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            color: #888;
+            font-weight: normal;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ff8a1f;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            border-radius: 8px;
+            color: #888;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            background: #ff8a1f;
+            color: #fff;
+        }
+
+        .tab:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .log-container {
+            background: #0a0a0f;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            padding: 5px 0;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .log-time {
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .log-info {
+            color: #5ce66f;
+        }
+
+        .log-warn {
+            color: #ff8a1f;
+        }
+
+        .log-error {
+            color: #ff6f7f;
+        }
+
+        .refresh-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bold;
+            animation: slideIn 0.3s ease;
+        }
+
+        .toast.success {
+            background: #28a745;
+        }
+
+        .toast.error {
+            background: #dc3545;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Prabu-Siliwangi Dashboard</h1>
+            <div id="connectionStatus">
+                <span class="refresh-indicator" style="background: #666;"></span>
+                <span id="statusText">Connecting...</span>
+            </div>
+        </header>
+
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Total Trades Today</span>
+                    <span id="statusIcon" class="status-badge disconnected">Offline</span>
+                </div>
+                <div class="stat-value" id="totalTrades">0</div>
+                <div class="stat-label">transactions</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Volume Today</span>
+                </div>
+                <div class="stat-value" id="volumeToday">0</div>
+                <div class="stat-label">SOL traded</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">P&L Today</span>
+                </div>
+                <div class="stat-value" id="pnlToday">0</div>
+                <div class="stat-label" id="pnlLabel">SOL profit/loss</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Active Subscriptions</span>
+                </div>
+                <div class="stat-value" id="subscriptions">0</div>
+                <div class="stat-label">wallets monitored</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('overview')">Overview</button>
+            <button class="tab" onclick="showTab('subscriptions')">Subscriptions</button>
+            <button class="tab" onclick="showTab('trading')">Trading</button>
+            <button class="tab" onclick="showTab('jito')">Jito</button>
+            <button class="tab" onclick="showTab('config')">Config</button>
+            <button class="tab" onclick="showTab('logs')">Logs</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">System Status</span>
+                    </div>
+                    <div id="systemStatus">
+                        <p><strong>Service:</strong> <span id="serviceName">-</span></p>
+                        <p><strong>Version:</strong> <span id="version">-</span></p>
+                        <p><strong>RPC:</strong> <span id="rpcUrl">-</span></p>
+                        <p><strong>Jito:</strong> <span id="jitoEnabled">-</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Recent Transactions</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Wallet</th>
+                                    <th>Token</th>
+                                    <th>Direction</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentTransactions">
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: #666;">No transactions yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="subscriptions" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Add Subscription</span>
+                    </div>
+                    <form id="addSubscriptionForm">
+                        <div class="form-group">
+                            <label>Wallet Address</label>
+                            <input type="text" id="walletAddress" placeholder="Enter wallet address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Min Amount (SOL)</label>
+                            <input type="number" id="minAmount" value="0.01" step="0.001">
+                        </div>
+                        <div class="form-group">
+                            <label>Slippage (bps)</label>
+                            <input type="number" id="slippageBps" value="500">
+                        </div>
+                        <div class="form-group">
+                            <label>Use Jito</label>
+                            <select id="useJito">
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Subscription</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Active Subscriptions</span>
+                        <button class="btn btn-secondary" onclick="refreshSubscriptions()">Refresh</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Wallet</th>
+                                    <th>Min Amount</th>
+                                    <th>Slippage</th>
+                                    <th>Jito</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subscriptionsTable">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: #666;">No subscriptions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="trading" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Execute Swap</span>
+                    </div>
+                    <form id="swapForm">
+                        <div class="form-group">
+                            <label>Token Mint</label>
+                            <input type="text" id="swapTokenMint" placeholder="Enter token mint address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (SOL)</label>
+                            <input type="number" id="swapAmount" value="0.1" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Direction</label>
+                            <select id="swapDirection">
+                                <option value="Buy">Buy</option>
+                                <option value="Sell">Sell</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Slippage (bps)</label>
+                            <input type="number" id="swapSlippage" value="500">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Execute Swap</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Get Quote</span>
+                    </div>
+                    <form id="quoteForm">
+                        <div class="form-group">
+                            <label>Token Mint</label>
+                            <input type="text" id="quoteTokenMint" placeholder="Enter token mint address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (SOL)</label>
+                            <input type="number" id="quoteAmount" value="0.1" step="0.01">
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Get Quote</button>
+                    </form>
+                    <div id="quoteResult" style="margin-top: 15px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="jito" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Jito Statistics</span>
+                        <button class="btn btn-secondary" onclick="refreshJitoStats()">Refresh</button>
+                    </div>
+                    <div id="jitoStats">
+                        <p><strong>Bundles Sent:</strong> <span id="bundlesSent">-</span></p>
+                        <p><strong>Bundles Confirmed:</strong> <span id="bundlesConfirmed">-</span></p>
+                        <p><strong>Bundles Failed:</strong> <span id="bundlesFailed">-</span></p>
+                        <p><strong>Confirmation Rate:</strong> <span id="confirmationRate">-</span></p>
+                        <p><strong>Last Bundle ID:</strong> <span id="lastBundleId">-</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Jito Status</span>
+                    </div>
+                    <div id="jitoStatus">
+                        <p><strong>Enabled:</strong> <span id="jitoStatusEnabled">-</span></p>
+                        <p><strong>Endpoints:</strong></p>
+                        <ul id="jitoEndpoints" style="margin-left: 20px; color: #888;"></ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Execute Bundle Swap</span>
+                    </div>
+                    <form id="bundleSwapForm">
+                        <div class="form-group">
+                            <label>Token Mint</label>
+                            <input type="text" id="bundleTokenMint" placeholder="Enter token mint address" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Amount (SOL)</label>
+                            <input type="number" id="bundleAmount" value="0.1" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Direction</label>
+                            <select id="bundleDirection">
+                                <option value="Buy">Buy</option>
+                                <option value="Sell">Sell</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success">Execute Bundle Swap</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="config" class="tab-content">
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Current Configuration</span>
+                        <button class="btn btn-secondary" onclick="refreshConfig()">Refresh</button>
+                    </div>
+                    <div id="currentConfig">
+                        <p><strong>RPC URL:</strong> <span id="configRpc">-</span></p>
+                        <p><strong>Jito Enabled:</strong> <span id="configJito">-</span></p>
+                        <p><strong>Default Slippage:</strong> <span id="configSlippage">-</span> bps</p>
+                        <p><strong>Max Slippage:</strong> <span id="configMaxSlippage">-</span> bps</p>
+                        <p><strong>Min Trade:</strong> <span id="configMinTrade">-</span> SOL</p>
+                        <p><strong>Max Trade:</strong> <span id="configMaxTrade">-</span> SOL</p>
+                        <p><strong>Auto Sell:</strong> <span id="configAutoSell">-</span></p>
+                        <p><strong>Auto Sell Delay:</strong> <span id="configAutoSellDelay">-</span> secs</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Update Configuration</span>
+                    </div>
+                    <form id="configForm">
+                        <div class="form-group">
+                            <label>Default Slippage (bps)</label>
+                            <input type="number" id="updateSlippage" value="500">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Slippage (bps)</label>
+                            <input type="number" id="updateMaxSlippage" value="1000">
+                        </div>
+                        <div class="form-group">
+                            <label>Min Trade Amount (SOL)</label>
+                            <input type="number" id="updateMinTrade" value="0.001" step="0.001">
+                        </div>
+                        <div class="form-group">
+                            <label>Max Trade Amount (SOL)</label>
+                            <input type="number" id="updateMaxTrade" value="10" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label>Jito Enabled</label>
+                            <select id="updateJito">
+                                <option value="true">Enabled</option>
+                                <option value="false">Disabled</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Update Config</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="logs" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">System Logs</span>
+                    <button class="btn btn-secondary" onclick="clearLogs()">Clear</button>
+                </div>
+                <div class="log-container" id="logContainer">
+                    <div class="log-entry">
+                        <span class="log-time">[--:--:--]</span>
+                        <span class="log-info">Dashboard initialized</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8787';
+        let logs = [];
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function addLog(message, type = 'info') {
+            const now = new Date();
+            const time = now.toTimeString().split(' ')[0];
+            const logEntry = { time, message, type };
+            logs.unshift(logEntry);
+            if (logs.length > 100) logs.pop();
+
+            const container = document.getElementById('logContainer');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `<span class="log-time">[${time}]</span><span class="log-${type}">${message}</span>`;
+            container.insertBefore(entry, container.firstChild);
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const options = {
+                method,
+                headers: { 'Content-Type': 'application/json' }
+            };
+            if (body) options.body = JSON.stringify(body);
+
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, options);
+                return await response.json();
+            } catch (error) {
+                addLog(`API Error: ${error.message}`, 'error');
+                throw error;
+            }
+        }
+
+        async function checkHealth() {
+            try {
+                const health = await apiCall('/health');
+                document.getElementById('statusText').textContent = 'Connected';
+                document.getElementById('statusIcon').className = 'status-badge connected';
+                document.getElementById('statusIcon').textContent = 'Online';
+                document.getElementById('serviceName').textContent = health.service;
+                document.getElementById('version').textContent = health.version;
+                addLog('Connected to Prabu Rust Copy Engine', 'info');
+                return true;
+            } catch (error) {
+                document.getElementById('statusText').textContent = 'Disconnected';
+                document.getElementById('statusIcon').className = 'status-badge disconnected';
+                document.getElementById('statusIcon').textContent = 'Offline';
+                addLog('Failed to connect to engine', 'error');
+                return false;
+            }
+        }
+
+        async function refreshStatus() {
+            try {
+                const status = await apiCall('/status');
+                document.getElementById('totalTrades').textContent = status.total_trades_today || 0;
+                document.getElementById('volumeToday').textContent = (status.total_volume_today_sol || 0).toFixed(4);
+                const pnl = status.pnl_today_sol || 0;
+                document.getElementById('pnlToday').textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(4);
+                document.getElementById('pnlToday').className = `stat-value ${pnl >= 0 ? 'positive' : 'negative'}`;
+                document.getElementById('subscriptions').textContent = status.subscriptions || 0;
+            } catch (error) {
+                console.error('Failed to refresh status:', error);
+            }
+        }
+
+        async function refreshConfig() {
+            try {
+                const config = await apiCall('/config');
+                document.getElementById('configRpc').textContent = config.rpc_url || '-';
+                document.getElementById('configJito').textContent = config.jito_enabled ? 'Yes' : 'No';
+                document.getElementById('configSlippage').textContent = config.default_slippage_bps || '-';
+                document.getElementById('configMaxSlippage').textContent = config.max_slippage_bps || '-';
+                document.getElementById('configMinTrade').textContent = config.min_trade_amount_sol || '-';
+                document.getElementById('configMaxTrade').textContent = config.max_trade_amount_sol || '-';
+                document.getElementById('configAutoSell').textContent = config.auto_sell ? 'Yes' : 'No';
+                document.getElementById('configAutoSellDelay').textContent = config.auto_sell_delay_secs || '-';
+            } catch (error) {
+                console.error('Failed to refresh config:', error);
+            }
+        }
+
+        async function refreshSubscriptions() {
+            try {
+                const subs = await apiCall('/subscriptions');
+                const tbody = document.getElementById('subscriptionsTable');
+                
+                if (!subs || subs.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #666;">No subscriptions</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = subs.map(sub => `
+                    <tr>
+                        <td>${sub.wallet_address.substring(0, 8)}...${sub.wallet_address.substring(sub.wallet_address.length - 4)}</td>
+                        <td>${sub.min_amount_sol}</td>
+                        <td>${sub.slippage_bps} bps</td>
+                        <td>${sub.use_jito ? 'Yes' : 'No'}</td>
+                        <td><button class="btn btn-danger" onclick="removeSubscription('${sub.wallet_address}')">Remove</button></td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to refresh subscriptions:', error);
+            }
+        }
+
+        async function addSubscription(wallet, minAmount, slippage, useJito) {
+            try {
+                const result = await apiCall('/subscriptions', 'POST', {
+                    wallet_address: wallet,
+                    enabled: true,
+                    min_amount_sol: parseFloat(minAmount),
+                    slippage_bps: parseInt(slippage),
+                    use_jito: useJito === 'true'
+                });
+                
+                if (result.ok) {
+                    showToast('Subscription added!', 'success');
+                    addLog(`Added subscription: ${wallet.substring(0, 8)}...`, 'info');
+                    refreshSubscriptions();
+                    refreshStatus();
+                } else {
+                    showToast(result.error || 'Failed to add subscription', 'error');
+                    addLog(`Failed to add subscription: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showToast('Failed to add subscription', 'error');
+                addLog(`Exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function removeSubscription(wallet) {
+            try {
+                const result = await apiCall(`/subscriptions/${wallet}`, 'DELETE');
+                if (result.ok) {
+                    showToast('Subscription removed!', 'success');
+                    addLog(`Removed subscription: ${wallet.substring(0, 8)}...`, 'info');
+                    refreshSubscriptions();
+                    refreshStatus();
+                } else {
+                    showToast(result.error || 'Failed to remove', 'error');
+                }
+            } catch (error) {
+                showToast('Failed to remove subscription', 'error');
+            }
+        }
+
+        async function executeSwap(tokenMint, amount, direction, slippage, useBundle = false) {
+            const endpoint = useBundle ? '/swap/bundle' : '/swap';
+            try {
+                addLog(`Executing ${useBundle ? 'bundle ' : ''}swap...`, 'info');
+                const result = await apiCall(endpoint, 'POST', {
+                    target_wallet: 'dashboard',
+                    token_mint: tokenMint,
+                    direction: direction,
+                    amount_sol: parseFloat(amount),
+                    slippage_bps: parseInt(slippage)
+                });
+
+                if (result.ok) {
+                    showToast('Swap executed!', 'success');
+                    addLog(`Swap success: ${result.signature?.substring(0, 16)}...`, 'info');
+                } else {
+                    showToast(result.error || 'Swap failed', 'error');
+                    addLog(`Swap failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showToast('Swap failed', 'error');
+                addLog(`Swap exception: ${error.message}`, 'error');
+            }
+        }
+
+        async function getQuote(tokenMint, amount) {
+            try {
+                const result = await apiCall('/swap/quote', 'POST', {
+                    token_mint: tokenMint,
+                    amount_sol: parseFloat(amount)
+                });
+
+                const quoteDiv = document.getElementById('quoteResult');
+                if (result.ok) {
+                    quoteDiv.innerHTML = `
+                        <div style="background: rgba(92, 230, 111, 0.1); padding: 15px; border-radius: 8px;">
+                            <p><strong>Pool:</strong> ${result.pool}</p>
+                            <p><strong>Estimated Tokens:</strong> ${result.estimated_tokens}</p>
+                            <p style="color: #ff8a1f;">⚠️ ${result.slippage_warning}</p>
+                        </div>
+                    `;
+                    addLog(`Quote for ${tokenMint.substring(0, 8)}: ~${result.estimated_tokens} tokens`, 'info');
+                } else {
+                    quoteDiv.innerHTML = `<p style="color: #ff6f7f;">${result.error}</p>`;
+                    addLog(`Quote failed: ${result.error}`, 'warn');
+                }
+            } catch (error) {
+                showToast('Failed to get quote', 'error');
+            }
+        }
+
+        async function refreshJitoStats() {
+            try {
+                const stats = await apiCall('/jito/stats');
+                const status = await apiCall('/jito/status');
+
+                if (stats.ok) {
+                    document.getElementById('bundlesSent').textContent = stats.bundles_sent;
+                    document.getElementById('bundlesConfirmed').textContent = stats.bundles_confirmed;
+                    document.getElementById('bundlesFailed').textContent = stats.bundles_failed;
+                    document.getElementById('confirmationRate').textContent = stats.confirmation_rate?.toFixed(1) + '%';
+                    document.getElementById('lastBundleId').textContent = stats.last_bundle_id?.substring(0, 16) + '...' || '-';
+                }
+
+                if (status.ok) {
+                    document.getElementById('jitoStatusEnabled').textContent = status.jito_enabled ? 'Yes' : 'No';
+                    const endpointsList = document.getElementById('jitoEndpoints');
+                    endpointsList.innerHTML = status.endpoints?.map(e => `<li>${e}</li>`).join('') || '-';
+                }
+            } catch (error) {
+                console.error('Failed to refresh Jito stats:', error);
+            }
+        }
+
+        async function updateConfig(slippage, maxSlippage, minTrade, maxTrade, jito) {
+            try {
+                const result = await apiCall('/config', 'POST', {
+                    default_slippage_bps: parseInt(slippage),
+                    max_slippage_bps: parseInt(maxSlippage),
+                    min_trade_amount_sol: parseFloat(minTrade),
+                    max_trade_amount_sol: parseFloat(maxTrade),
+                    jito_enabled: jito === 'true'
+                });
+
+                if (result.ok) {
+                    showToast('Config updated!', 'success');
+                    addLog('Configuration updated', 'info');
+                    refreshConfig();
+                } else {
+                    showToast(result.error || 'Failed to update', 'error');
+                }
+            } catch (error) {
+                showToast('Failed to update config', 'error');
+            }
+        }
+
+        function clearLogs() {
+            logs = [];
+            document.getElementById('logContainer').innerHTML = '';
+            addLog('Logs cleared', 'info');
+        }
+
+        // Event Listeners
+        document.getElementById('addSubscriptionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const wallet = document.getElementById('walletAddress').value;
+            const minAmount = document.getElementById('minAmount').value;
+            const slippage = document.getElementById('slippageBps').value;
+            const useJito = document.getElementById('useJito').value;
+            await addSubscription(wallet, minAmount, slippage, useJito);
+            e.target.reset();
+        });
+
+        document.getElementById('swapForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const tokenMint = document.getElementById('swapTokenMint').value;
+            const amount = document.getElementById('swapAmount').value;
+            const direction = document.getElementById('swapDirection').value;
+            const slippage = document.getElementById('swapSlippage').value;
+            await executeSwap(tokenMint, amount, direction, slippage, false);
+        });
+
+        document.getElementById('quoteForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const tokenMint = document.getElementById('quoteTokenMint').value;
+            const amount = document.getElementById('quoteAmount').value;
+            await getQuote(tokenMint, amount);
+        });
+
+        document.getElementById('bundleSwapForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const tokenMint = document.getElementById('bundleTokenMint').value;
+            const amount = document.getElementById('bundleAmount').value;
+            const direction = document.getElementById('bundleDirection').value;
+            await executeSwap(tokenMint, amount, direction, 500, true);
+        });
+
+        document.getElementById('configForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const slippage = document.getElementById('updateSlippage').value;
+            const maxSlippage = document.getElementById('updateMaxSlippage').value;
+            const minTrade = document.getElementById('updateMinTrade').value;
+            const maxTrade = document.getElementById('updateMaxTrade').value;
+            const jito = document.getElementById('updateJito').value;
+            await updateConfig(slippage, maxSlippage, minTrade, maxTrade, jito);
+        });
+
+        // Initialize
+        async function init() {
+            await checkHealth();
+            await refreshStatus();
+            await refreshConfig();
+            await refreshSubscriptions();
+            await refreshJitoStats();
+
+            // Refresh every 5 seconds
+            setInterval(refreshStatus, 5000);
+            setInterval(refreshJitoStats, 10000);
+
+            // WebSocket for real-time updates
+            connectWebSocket();
+        }
+
+        // WebSocket connection
+        let ws = null;
+        let wsReconnectAttempts = 0;
+        const maxReconnectAttempts = 5;
+
+        function connectWebSocket() {
+            const wsUrl = 'ws://localhost:8787/ws';
+            try {
+                ws = new WebSocket(wsUrl);
+                
+                ws.onopen = () => {
+                    console.log('WebSocket connected');
+                    addLog('WebSocket connected - Real-time updates enabled', 'info');
+                    wsReconnectAttempts = 0;
+                    document.getElementById('statusText').textContent = 'Connected (WS)';
+                };
+
+                ws.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        if (data.type === 'status') {
+                            // Update status from WebSocket
+                            document.getElementById('totalTrades').textContent = data.data.total_trades_today || 0;
+                            document.getElementById('volumeToday').textContent = (data.data.total_volume_today_sol || 0).toFixed(4);
+                            const pnl = data.data.pnl_today_sol || 0;
+                            document.getElementById('pnlToday').textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(4);
+                            document.getElementById('pnlToday').className = `stat-value ${pnl >= 0 ? 'positive' : 'negative'}`;
+                            document.getElementById('subscriptions').textContent = data.data.subscriptions || 0;
+                        }
+                    } catch (e) {
+                        console.log('WS message:', event.data);
+                    }
+                };
+
+                ws.onclose = () => {
+                    console.log('WebSocket disconnected');
+                    addLog('WebSocket disconnected', 'warn');
+                    if (wsReconnectAttempts < maxReconnectAttempts) {
+                        wsReconnectAttempts++;
+                        setTimeout(connectWebSocket, 3000);
+                    }
+                };
+
+                ws.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                    addLog('WebSocket error - falling back to polling', 'warn');
+                };
+            } catch (error) {
+                console.error('Failed to connect WebSocket:', error);
+                addLog('WebSocket not available - using polling', 'warn');
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

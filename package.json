@@ -1,0 +1,38 @@
+{
+  "name": "prabu-siliwangi",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Hybrid modular Solana operations platform",
+  "author": "Andzisone",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @prabu/kabayan-bot",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "start:all": "powershell -ExecutionPolicy Bypass -File scripts/start-all.ps1",
+    "smoke:paper": "ts-node --compilerOptions \"{\\\"module\\\":\\\"commonjs\\\"}\" scripts/smoke-paper-flow.ts",
+    "preflight:live": "ts-node --compilerOptions \"{\\\"module\\\":\\\"commonjs\\\"}\" scripts/preflight-live.ts"
+  },
+  "dependencies": {
+    "@meteora-ag/dlmm": "^1.1.10",
+    "@coral-xyz/anchor": "^0.30.1",
+    "@solana/web3.js": "^1.95.0",
+    "@napi-rs/canvas": "^0.1.52",
+    "bn.js": "^5.2.1",
+    "bs58": "^6.0.0",
+    "dotenv": "^16.4.5",
+    "node-telegram-bot-api": "^0.66.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "@types/node": "^22.5.0"
+  }
+}

@@ -1,0 +1,16 @@
+# Prometheus configuration for Prabu-Siliwangi
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Rust Copy Engine metrics
+  - job_name: 'prabu-rust-engine'
+    static_configs:
+      - targets: ['rust-copy-engine:8787']
+    metrics_path: '/metrics'
+
+  # Kabayan Bot (if exposed)
+  - job_name: 'prabu-kabayan-bot'
+    static_configs:
+      - targets: ['kabayan-bot:3000']

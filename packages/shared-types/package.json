@@ -1,0 +1,9 @@
+{
+  "name": "@prabu/shared-types",
+  "private": true,
+  "version": "0.1.0",
+
+  "description": "Shared Solana helpers for Prabu-Siliwangi",
+  "author": "Andzisone",
+  "main": "src/index.ts"
+}

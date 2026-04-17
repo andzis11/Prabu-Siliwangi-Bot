@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "@prabu/meteora": ["./src/ambient.d.ts"],
+      "@prabu/pnl-renderer": ["./src/ambient.d.ts"],
+      "@prabu/wallet-intel": ["./src/ambient.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "exclude": ["dist", "node_modules"]
+}

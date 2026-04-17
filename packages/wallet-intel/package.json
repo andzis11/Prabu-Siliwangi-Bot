@@ -1,0 +1,19 @@
+{
+  "name": "@prabu/wallet-intel",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Wallet intelligence package for Prabu-Siliwangi - funding analysis, bundle detection, identity lookup",
+  "author": "Andzisone",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}

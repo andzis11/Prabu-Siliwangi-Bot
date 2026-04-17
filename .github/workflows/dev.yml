@@ -1,0 +1,72 @@
+name: Development Workflow
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+jobs:
+  # Dev Build & Test
+  dev-build:
+    name: Dev Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript type check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+  # Rust Build
+  rust-build:
+    name: Rust Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-action@stable
+        with:
+          toolchain: stable
+
+      - name: Build
+        working-directory: services/rust-copy-engine
+        run: cargo build
+
+      - name: Run tests
+        working-directory: services/rust-copy-engine
+        run: cargo test
+
+  # Deploy to Dev Server
+  deploy-dev:
+    name: Deploy to Dev Server
+    runs-on: ubuntu-latest
+    needs: [dev-build, rust-build]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    
+    steps:
+      - name: Deploy to Dev VPS
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.DEV_VPS_HOST }}
+          username: ${{ secrets.DEV_VPS_USER }}
+          key: ${{ secrets.DEV_VPS_SSH_KEY }}
+          script: |
+            cd /app/prabu-siliwangi-dev
+            git pull origin develop
+            docker-compose pull
+            docker-compose up -d
