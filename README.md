@@ -6,29 +6,29 @@ Platform trading Solana hybrid modular ngagunakeun Telegram salaku control cente
 
 Prabu-Siliwangi téh sistem trading Solana anu ngagabungkeun sababaraha komponén utama:
 
-- **Telegram Bot** - Control center utama pikeun kontrol jeung monitoring
-- **AI Integration** - Screening jeung analisis via OpenRouter
-- **Meteora DLMM** - Manajemen liquidity jeung posisi
+- **Telegram Bot**        - Control center utama pikeun kontrol jeung monitoring
+- **AI Integration**      - Screening jeung analisis via OpenRouter
+- **Meteora DLMM**        - Manajemen liquidity jeung posisi
 - **Wallet Intelligence** - Analisa wallet, funder detection, bundle analysis
-- **PnL Visualization** - Render hasil trading sakadar visual card
-- **Rust Copy Engine** - Layanan copy trading performansi tinggi
-- **Automation** - Auto-execute, DCA, trailing TP/SL, time-exit
+- **PnL Visualization**   - Render hasil trading sakadar visual card
+- **Rust Copy Engine**    - Layanan copy trading performansi tinggi
+- **Automation**          - Auto-execute, DCA, trailing TP/SL, time-exit
 
 ## Arsitektur
 
 ```
 Prabu-Siliwangi/
-├── apps/prabu-siliwangi/     # Telegram bot (main app)
-├── packages/                # Reusable modules
-│   ├── ai-router/          # AI provider routing (OpenRouter)
-│   ├── meteora/            # Meteora DLMM integration
-│   ├── pnl-renderer/      # PnL card visualization
-│   ├── shared-solana/       # Solana utilities
-│   ├── wallet-intel/       # Wallet analysis (Helius)
-│   └── shared-types/        # Shared types
-├── services/               # External services
-│   └── rust-copy-engine/  # Rust copy trading engine
-└── scripts/                # CLI scripts
+├── apps/prabu-siliwangi/      # Telegram bot (main app)
+├── packages/                  # Reusable modules
+│   ├── ai-router/             # AI provider routing (OpenRouter)
+│   ├── meteora/               # Meteora DLMM integration
+│   ├── pnl-renderer/          # PnL card visualization
+│   ├── shared-solana/         # Solana utilities
+│   ├── wallet-intel/          # Wallet analysis (Helius)
+│   └── shared-types/          # Shared types
+├── services/                  # External services
+│   └── rust-copy-engine/      # Rust copy trading engine
+└── scripts/                   # CLI scripts
 ```
 
 Monorepo dengan npm workspaces - semua package bisa di-build dan di-test bersama.
@@ -38,28 +38,28 @@ Monorepo dengan npm workspaces - semua package bisa di-build dan di-test bersama
 ```
 Prabu-Siliwangi/
 ├── apps/
-│   └── prabu-siliwangi/          # Telegram bot & orchestration
+│   └── prabu-siliwangi/                # Telegram bot & orchestration
 │       └── src/
-│           ├── bot/          # Telegram gateway & UI
-│           ├── jobs/         # Scheduled workers
-│           │   └── workers/  # Screening, Management, Health, Report workers
-│           ├── modules/      # Feature modules
-│           │   ├── auto-execute/      # Auto buy/sell with trailing
-│           │   ├── backtest/          # Strategy backtesting
+│           ├── bot/                    # Telegram gateway & UI
+│           ├── jobs/                   # Scheduled workers
+│           │   └── workers/            # Screening, Management, Health, Report workers
+│           ├── modules/                # Feature modules
+│           │   ├── auto-execute/       # Auto buy/sell with trailing
+│           │   ├── backtest/           # Strategy backtesting
 │           │   ├── copy-trade/         # Copy trading dashboard
-│           │   ├── dca/              # Dollar Cost Averaging
+│           │   ├── dca/                # Dollar Cost Averaging
 │           │   ├── execution/          # Position execution
-│           │   ├── liquidity/         # Liquidity checking
+│           │   ├── liquidity/          # Liquidity checking
 │           │   ├── notifications/      # Telegram alerts
 │           │   ├── persistence/        # Database persistence
 │           │   ├── pool-discovery/     # Real pool discovery
-│           │   ├── price/            # Real-time price feed
-│           │   ├── reports/           # Daily/weekly reports
-│           │   ├── risk/             # Risk calculator
-│           │   ├── screening/         # AI pool screening
-│           │   ├── time-exit/        # Time-based exit
-│           │   └── wallet-intel/      # Wallet analysis
-│           └── integrations/          # External service clients
+│           │   ├── price/              # Real-time price feed
+│           │   ├── reports/            # Daily/weekly reports
+│           │   ├── risk/               # Risk calculator
+│           │   ├── screening/          # AI pool screening
+│           │   ├── time-exit/          # Time-based exit
+│           │   └── wallet-intel/       # Wallet analysis
+│           └── integrations/           # External service clients
 ├── packages/
 │   ├── ai-router/            # AI provider routing
 │   ├── meteora/              # Meteora DLMM module
@@ -218,17 +218,17 @@ npm run build -w @prabu/meteora
 
 | Command | Deskripsi |
 |---------|-----------|
-| `/start` | Start bot & show main menu |
-| `/buy <token>` | Buy token secara manual |
-| `/sell <token>` | Sell token |
-| `/status` | Show system status |
-| `/health` | Health check |
-| `/report` | Daily P&L report |
-| `/positions` | Show open positions |
-| `/wallet <address>` | Wallet analysis |
-| `/screen` | Run AI screening |
-| `/auto` | Toggle auto execute |
-| `/dca <token>` | Start DCA |
+| `/start`             | Start bot & show main menu |
+| `/buy <token>`       | Buy token secara manual    |
+| `/sell <token>`      | Sell token                 |
+| `/status`            | Show system status         |
+| `/health`            | Health check               |
+| `/report`            | Daily P&L report           |
+| `/positions`         | Show open positions        |
+| `/wallet <address>`  | Wallet analysis            |
+| `/screen`            | Run AI screening           |
+| `/auto`              | Toggle auto execute        |
+| `/dca <token>`       | Start DCA                  |
 
 ## Worker System
 

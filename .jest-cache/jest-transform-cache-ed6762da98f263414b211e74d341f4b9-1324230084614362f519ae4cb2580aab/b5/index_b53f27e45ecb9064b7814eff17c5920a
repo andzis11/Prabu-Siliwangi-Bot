@@ -1,0 +1,44 @@
+a7dbb8da4ca5a7371f8f5ef0131b5537
+"use strict";
+/**
+ * PnL Renderer Module
+ *
+ * Main exports for the PnL rendering package.
+ * Provides card generation for trading performance visualization.
+ */
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = exports.createPnLRenderer = exports.createCanvasPnLRenderer = exports.CanvasPnLRenderer = void 0;
+exports.describePnLRenderer = describePnLRenderer;
+// Export types
+__exportStar(require("./types"), exports);
+// Export core renderer implementation
+var canvasRenderer_1 = require("./core/canvasRenderer");
+Object.defineProperty(exports, "CanvasPnLRenderer", { enumerable: true, get: function () { return canvasRenderer_1.CanvasPnLRenderer; } });
+Object.defineProperty(exports, "createCanvasPnLRenderer", { enumerable: true, get: function () { return canvasRenderer_1.createCanvasPnLRenderer; } });
+// Export compatibility layer for backward compatibility
+var compatibility_1 = require("./core/compatibility");
+Object.defineProperty(exports, "createPnLRenderer", { enumerable: true, get: function () { return compatibility_1.createPnLRenderer; } });
+/**
+ * Describe the PnL Renderer module
+ */
+function describePnLRenderer() {
+    return "PnL Renderer Module - Generates visual cards for trading performance with multiple themes, currencies, and customization options.";
+}
+// Default export for convenience
+var canvasRenderer_2 = require("./core/canvasRenderer");
+Object.defineProperty(exports, "default", { enumerable: true, get: function () { return canvasRenderer_2.CanvasPnLRenderer; } });
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxFbGVjdHJpY1xcRG9jdW1lbnRzXFxDb21iaW5lXFxQcmFidS1TaWxpd2FuZ2lcXHBhY2thZ2VzXFxwbmwtcmVuZGVyZXJcXHNyY1xcaW5kZXgudHMiLCJtYXBwaW5ncyI6IjtBQUFBOzs7OztHQUtHOzs7Ozs7Ozs7Ozs7Ozs7OztBQXdCSCxrREFFQztBQXhCRCxlQUFlO0FBQ2YsMENBQXdCO0FBRXhCLHNDQUFzQztBQUN0Qyx3REFPK0I7QUFON0IsbUhBQUEsaUJBQWlCLE9BQUE7QUFDakIseUhBQUEsdUJBQXVCLE9BQUE7QUFPekIsd0RBQXdEO0FBQ3hELHNEQUc4QjtBQUY1QixrSEFBQSxpQkFBaUIsT0FBQTtBQUluQjs7R0FFRztBQUNILFNBQWdCLG1CQUFtQjtJQUNqQyxPQUFPLG1JQUFtSSxDQUFDO0FBQzdJLENBQUM7QUFFRCxpQ0FBaUM7QUFDakMsd0RBQXFFO0FBQTVELHlHQUFBLGlCQUFpQixPQUFXIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcRWxlY3RyaWNcXERvY3VtZW50c1xcQ29tYmluZVxcUHJhYnUtU2lsaXdhbmdpXFxwYWNrYWdlc1xccG5sLXJlbmRlcmVyXFxzcmNcXGluZGV4LnRzIl0sInNvdXJjZXNDb250ZW50IjpbIi8qKlxyXG4gKiBQbkwgUmVuZGVyZXIgTW9kdWxlXHJcbiAqXHJcbiAqIE1haW4gZXhwb3J0cyBmb3IgdGhlIFBuTCByZW5kZXJpbmcgcGFja2FnZS5cclxuICogUHJvdmlkZXMgY2FyZCBnZW5lcmF0aW9uIGZvciB0cmFkaW5nIHBlcmZvcm1hbmNlIHZpc3VhbGl6YXRpb24uXHJcbiAqL1xyXG5cclxuLy8gRXhwb3J0IHR5cGVzXHJcbmV4cG9ydCAqIGZyb20gXCIuL3R5cGVzXCI7XHJcblxyXG4vLyBFeHBvcnQgY29yZSByZW5kZXJlciBpbXBsZW1lbnRhdGlvblxyXG5leHBvcnQge1xyXG4gIENhbnZhc1BuTFJlbmRlcmVyLFxyXG4gIGNyZWF0ZUNhbnZhc1BuTFJlbmRlcmVyLFxyXG4gIHR5cGUgUG5MQ2FyZERhdGEsXHJcbiAgdHlwZSBQbkxUaGVtZSxcclxuICB0eXBlIFBuTFJlbmRlcmVyT3B0aW9ucyxcclxuICB0eXBlIFRoZW1lQ29sb3JzXHJcbn0gZnJvbSBcIi4vY29yZS9jYW52YXNSZW5kZXJlclwiO1xyXG5cclxuLy8gRXhwb3J0IGNvbXBhdGliaWxpdHkgbGF5ZXIgZm9yIGJhY2t3YXJkIGNvbXBhdGliaWxpdHlcclxuZXhwb3J0IHtcclxuICBjcmVhdGVQbkxSZW5kZXJlcixcclxuICB0eXBlIFBuTFJlbmRlcmVyIGFzIExlZ2FjeVBuTFJlbmRlcmVyXHJcbn0gZnJvbSBcIi4vY29yZS9jb21wYXRpYmlsaXR5XCI7XHJcblxyXG4vKipcclxuICogRGVzY3JpYmUgdGhlIFBuTCBSZW5kZXJlciBtb2R1bGVcclxuICovXHJcbmV4cG9ydCBmdW5jdGlvbiBkZXNjcmliZVBuTFJlbmRlcmVyKCk6IHN0cmluZyB7XHJcbiAgcmV0dXJuIFwiUG5MIFJlbmRlcmVyIE1vZHVsZSAtIEdlbmVyYXRlcyB2aXN1YWwgY2FyZHMgZm9yIHRyYWRpbmcgcGVyZm9ybWFuY2Ugd2l0aCBtdWx0aXBsZSB0aGVtZXMsIGN1cnJlbmNpZXMsIGFuZCBjdXN0b21pemF0aW9uIG9wdGlvbnMuXCI7XHJcbn1cclxuXHJcbi8vIERlZmF1bHQgZXhwb3J0IGZvciBjb252ZW5pZW5jZVxyXG5leHBvcnQgeyBDYW52YXNQbkxSZW5kZXJlciBhcyBkZWZhdWx0IH0gZnJvbSBcIi4vY29yZS9jYW52YXNSZW5kZXJlclwiO1xyXG4iXSwidmVyc2lvbiI6M30=
