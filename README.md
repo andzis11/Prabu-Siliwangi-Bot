@@ -1,20 +1,20 @@
 # Prabu-Siliwangi
 
-Platform trading Solana hybrid modular ngagunakeun Telegram salaku control center, integrasi AI pikeun screening jeung analisis, sarta fitur lengkep pikeun trading, DCA, copy trading, jeung automation.
+Hybrid modular Solana trading platform with Telegram as control center, AI integration for screening and analysis, and complete features for trading, DCA, copy trading, and automation.
 
 ## Overview
 
-Prabu-Siliwangi téh sistem trading Solana anu ngagabungkeun sababaraha komponén utama:
+Prabu-Siliwangi is a Solana trading system that combines several main components:
 
-- **Telegram Bot**        - Control center utama pikeun kontrol jeung monitoring
-- **AI Integration**      - Screening jeung analisis via OpenRouter
-- **Meteora DLMM**        - Manajemen liquidity jeung posisi
-- **Wallet Intelligence** - Analisa wallet, funder detection, bundle analysis
-- **PnL Visualization**   - Render hasil trading sakadar visual card
-- **Rust Copy Engine**    - Layanan copy trading performansi tinggi
+- **Telegram Bot**        - Main control center for control and monitoring
+- **AI Integration**      - Screening and analysis via OpenRouter
+- **Meteora DLMM**        - Liquidity and position management
+- **Wallet Intelligence** - Wallet analysis, funder detection, bundle analysis
+- **PnL Visualization**   - Render trading results as visual cards
+- **Rust Copy Engine**    - High-performance copy trading service
 - **Automation**          - Auto-execute, DCA, trailing TP/SL, time-exit
 
-## Arsitektur
+## Architecture
 
 ```
 Prabu-Siliwangi/
@@ -31,9 +31,9 @@ Prabu-Siliwangi/
 └── scripts/                   # CLI scripts
 ```
 
-Monorepo dengan npm workspaces - semua package bisa di-build dan di-test bersama.
+Monorepo with npm workspaces - all packages can be built and tested together.
 
-## Struktur Folder
+## Folder Structure
 
 ```
 Prabu-Siliwangi/
@@ -73,9 +73,9 @@ Prabu-Siliwangi/
 
 ## Prerequisites
 
-- Node.js 20.x atau lebih baru
-- Rust (untuk Rust Copy Engine)
-- npm atau yarn
+- Node.js 20.x or newer
+- Rust (for Rust Copy Engine)
+- npm or yarn
 
 ## Getting Started
 
@@ -93,7 +93,7 @@ Copy environment template:
 cp env.template .env
 ```
 
-Edit `.env` dan isi nilai yang diperlukan:
+Edit `.env` and fill in the required values:
 
 ```env
 # Telegram
@@ -150,38 +150,38 @@ npm run dev -w @prabu/prabu-siliwangi
 npm run build -w @prabu/meteora
 ```
 
-## Fitur Utama
+## Key Features
 
 ### 🤖 AI Screening
-- Pool screening dengan AI (OpenRouter)
+- Pool screening with AI (OpenRouter)
 - Organic score calculation
 - Filter TVL, volume, holders
-- Auto-execute berdasarkan score threshold
+- Auto-execute based on score threshold
 
 ### ⚡ Auto Execute
-- Automatic buy berdasarkan AI score
+- Automatic buy based on AI score
 - Position sizing (% of capital)
 - Trailing Take Profit (TTP)
 - Trailing Stop Loss (TSL)
 - Max concurrent positions
 
 ### 💰 DCA (Dollar Cost Averaging)
-- Split posisi menjadi beberapa legs
-- Konfigurable interval
-- Skip legs jika harga bergerak jauh
+- Split position into multiple legs
+- Configurable interval
+- Skip legs if price moves too far
 
 ### ⏰ Time Exit
-- Auto-tutup posisi setelah X jam
-- Warning notification sebelum expiry
+- Auto-close position after X hours
+- Warning notification before expiry
 
 ### 📊 Risk Management
-- Position sizing berdasarkan risk tolerance
+- Position sizing based on risk tolerance
 - Kelly Criterion calculation
 - Stop Loss & Take Profit (fixed & trailing)
 - Max drawdown tracking
 
 ### 💧 Liquidity Check
-- Cek pool liquidity sebelum buy
+- Check pool liquidity before buy
 - Slippage estimation
 - In-range liquidity analysis
 
@@ -191,16 +191,16 @@ npm run build -w @prabu/meteora
 - 24h price change
 
 ### 📈 Pool Discovery
-- Trending pools dari Helius API
+- Trending pools from Helius API
 - New token discovery
 
 ### 💼 Copy Trading
-- Subscribe wallet target
+- Subscribe to target wallet
 - Real-time position tracking
 - Trade history & analytics
 
 ### 🧪 Backtesting
-- Test strategi dengan historical data
+- Test strategy with historical data
 - Multiple strategy comparison
 - Equity curve tracking
 
@@ -216,11 +216,11 @@ npm run build -w @prabu/meteora
 
 ## Telegram Commands
 
-| Command | Deskripsi |
-|---------|-----------|
+| Command | Description |
+|---------|-------------|
 | `/start`             | Start bot & show main menu |
-| `/buy <token>`       | Buy token secara manual    |
-| `/sell <token>`      | Sell token                 |
+| `/buy <token>`       | Buy token manually    |
+| `/sell <token>`      | Sell token manually |
 | `/status`            | Show system status         |
 | `/health`            | Health check               |
 | `/report`            | Daily P&L report           |
@@ -251,16 +251,16 @@ npm run build -w @prabu/meteora
 
 ### Add new package
 
-1. Create folder di `packages/`
-2. Tambahkan `package.json` dengan nama scoped `@prabu/*`
-3. Add ke `workspaces` di root `package.json`
+1. Create folder in `packages/`
+2. Add `package.json` with scoped name `@prabu/*`
+3. Add to `workspaces` in root `package.json`
 
 ### Add new feature
 
-1. Buat module di `packages/` jika reusable
-2. Import di `apps/prabu-siliwangi/src/`
-3. Tambahkan command di Telegram gateway
+1. Create module in `packages/` if reusable
+2. Import in `apps/prabu-siliwangi/src/`
+3. Add command in Telegram gateway
 
-## Lisensi
+## License
 
-Private - Saklir berhak dilingkupan
+Private - All rights reserved
